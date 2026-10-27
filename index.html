@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialectical World Engine: GitHub Flow Visualizer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ghBg: '#0d1117',
+                        ghCard: '#161b22',
+                        ghBorder: '#30363d',
+                        ghAccent: '#238636',
+                        ghBlue: '#58a6ff',
+                        ghPurple: '#bc8cff',
+                        ghYellow: '#d29922',
+                        ghGreen: '#3fb950',
+                        ghRed: '#f85149'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0d1117; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #484f58; }
+        
+        /* Mermaid Dark Container Adjustments */
+        .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+            font-family: inherit !important;
+        }
+        
+        .glow-blue { box-shadow: 0 0 15px rgba(88, 166, 255, 0.15); }
+        .glow-purple { box-shadow: 0 0 15px rgba(188, 140, 255, 0.15); }
+    </style>
+</head>
+<body class="bg-ghBg text-gray-200 font-sans min-h-screen flex flex-col antialiased selection:bg-ghBlue selection:text-black">
+
+    <!-- TOP HEADER / NAV -->
+    <header class="border-b border-ghBorder bg-ghCard/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-ghBlue/10 border border-ghBlue/30 flex items-center justify-center text-ghBlue font-mono text-xl">
+                    <i class="fa-solid font-mono text-lg text-ghBlue">λ</i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-white leading-none flex items-center gap-2">
+                        Dialectical Evolution Engine
+                        <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-ghBlue/10 text-ghBlue border border-ghBlue/30">v2.5.0-release</span>
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1">Insanlik Tarihinin Felsefi, Sosyolojik, Ekonomik & Siber Kırılma Haritası</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <div class="hidden md:flex items-center space-x-2 text-xs font-mono text-gray-400 bg-ghBg border border-ghBorder px-3 py-1.5 rounded-md">
+                    <span class="w-2 h-2 rounded-full bg-ghGreen animate-pulse"></span>
+                    <span>Repository: dialectics/world-history:main</span>
+                </div>
+                <a href="#matrix" class="px-3 py-1.5 text-xs font-medium text-white bg-ghBorder hover:bg-gray-700 rounded-md transition">
+                    <i class="fa-solid fa-table-cells mr-1"></i> Matris
+                </a>
+                <a href="#references" class="px-3 py-1.5 text-xs font-medium text-white bg-ghAccent hover:bg-green-700 rounded-md transition">
+                    <i class="fa-solid fa-book-bookmark mr-1"></i> Kaynakca
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN WRAPPER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- DASHBOARD HERO SUMMARY & DOMAIN FILTERS -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Left Info Panel -->
+            <div class="lg:col-span-1 bg-ghCard border border-ghBorder rounded-xl p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-mono font-semibold text-ghPurple uppercase tracking-wider">Metodoloji</span>
+                        <i class="fa-solid fa-diagram-project text-ghPurple"></i>
+                    </div>
+                    <h2 class="text-lg font-bold text-white mb-2">Hegel & Marx Git-Flow Modeli</h2>
+                    <p class="text-xs text-gray-400 leading-relaxed mb-4">
+                        Tarihsel ilerleme doğrusal bir hat degil; <strong>Main Branch (Tez)</strong>, <strong>Feature Branch (Antitez)</strong> ve <strong>Merge Commit (Sentez)</strong> diyalektik mekanizmasi ile ilerler.
+                    </p>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex items-center text-ghBlue">
+                            <span class="w-3 h-3 rounded-full bg-ghBlue/20 border border-ghBlue mr-2"></span>
+                            <span>Main: Yerleşik Düzem (Tez)</span>
+                        </div>
+                        <div class="flex items-center text-ghPurple">
+                            <span class="w-3 h-3 rounded-full bg-ghPurple/20 border border-ghPurple mr-2"></span>
+                            <span>Branch: Devrimci Kırılma (Antitez)</span>
+                        </div>
+                        <div class="flex items-center text-ghGreen">
+                            <span class="w-3 h-3 rounded-full bg-ghGreen/20 border border-ghGreen mr-2"></span>
+                            <span>Merge: Yeni Paradigma (Sentez)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-ghBorder">
+                    <label class="block text-xs font-mono text-gray-400 mb-2">Disiplin Filtresi:</label>
+                    <select id="domain-filter" onchange="filterNodesByDomain(this.value)" class="w-full bg-ghBg border border-ghBorder rounded-md text-xs text-gray-300 p-2 focus:outline-none focus:border-ghBlue">
+                        <option value="all">Tüm Disiplinler (Kapsamlı View)</option>
+                        <option value="philosophy">Felsefe & İnsan Doğası (Rousseau/Hobbes)</option>
+                        <option value="biology">Biyoloji & Antropoloji</option>
+                        <option value="economics">Ekonomi Politika & Uluslar</option>
+                        <option value="cyber">Bilgisayar, Siber Uzay & YZ</option>
+                        <option value="postmodern">Postmodernizm & Tarih Yazımı</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Right Interactive Quick Metrics -->
+            <div class="lg:col-span-3 bg-ghCard border border-ghBorder rounded-xl p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-code-branch text-ghBlue"></i>
+                            Tarihsel Kırılma ve Dialektik Akış
+                        </h2>
+                        <span class="text-xs text-gray-400 font-mono">Görselleştiren: Mermaid.js Engine v10 (ASCII Compliant)</span>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center mb-4">
+                        <div class="bg-ghBg border border-ghBorder p-3 rounded-lg">
+                            <div class="text-xl font-bold text-ghBlue font-mono">5 Dönem</div>
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Antik'ten YZ'ye</div>
+                        </div>
+                        <div class="bg-ghBg border border-ghBorder p-3 rounded-lg">
+                            <div class="text-xl font-bold text-ghPurple font-mono">8 Disiplin</div>
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Biyoloji-Siber</div>
+                        </div>
+                        <div class="bg-ghBg border border-ghBorder p-3 rounded-lg">
+                            <div class="text-xl font-bold text-ghGreen font-mono">14 Node</div>
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Interactive Commit</div>
+                        </div>
+                        <div class="bg-ghBg border border-ghBorder p-3 rounded-lg">
+                            <div class="text-xl font-bold text-ghYellow font-mono">AGI Horizon</div>
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Post-Human Era</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-ghBg/60 border border-ghBorder/60 p-3 rounded-lg flex items-center justify-between text-xs text-gray-400">
+                    <span class="flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-ghBlue"></i>
+                        Aşağıdaki gitGraph diyagramındaki veya kartlardaki düğümlere tıklayarak detaylı analiz paneline erişebilirsiniz.
+                    </span>
+                    <span class="font-mono text-[11px] text-ghBlue">UTF-8 ASCII Verified</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN MERMAID DIAGRAM SECTION -->
+        <section class="bg-ghCard border border-ghBorder rounded-xl p-6 shadow-2xl relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-git-alt text-ghRed"></i>
+                    Interactive GitHub Flow Diagram: Evolution of Civilization
+                </h2>
+                <div class="flex items-center space-x-2">
+                    <button onclick="reloadDiagram()" class="px-2.5 py-1 bg-ghBg hover:bg-ghBorder border border-ghBorder text-gray-300 rounded text-xs transition flex items-center gap-1">
+                        <i class="fa-solid fa-rotate-right text-[10px]"></i> Reset View
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mermaid Wrapper -->
+            <div class="mermaid overflow-x-auto py-4 bg-ghBg border border-ghBorder/60 rounded-lg flex justify-center" id="mermaid-container">
+gitGraph
+    commit id: "Bio_Cognitive_Rev" tag: "Tez_01"
+    commit id: "Agricultural_Rev"
+    branch Political_States_Branch
+    checkout Political_States_Branch
+    commit id: "Sedentary_Nations"
+    commit id: "Rousseau_Hobbes_Debate" tag: "Philosophy"
+    checkout main
+    merge Political_States_Branch id: "Feudal_Westphalia_Merge" tag: "Sentez_01"
+    
+    branch Industrial_Capitalism_Branch
+    checkout Industrial_Capitalism_Branch
+    commit id: "Adam_Smith_Capitalism"
+    commit id: "Marxist_Antithesis" tag: "Antitez"
+    checkout main
+    merge Industrial_Capitalism_Branch id: "Social_State_Welfare_Merge" tag: "Sentez_02"
+    
+    branch Cyber_Digital_Branch
+    checkout Cyber_Digital_Branch
+    commit id: "Turing_ENIAC_Computers"
+    commit id: "ARPANET_Cyber_Space"
+    commit id: "Postmodern_Foucault_Lyotard" tag: "Postmodern"
+    checkout main
+    merge Cyber_Digital_Branch id: "Information_Network_Society_Merge" tag: "Sentez_03"
+    
+    branch AI_PostHuman_Branch
+    checkout AI_PostHuman_Branch
+    commit id: "DeepLearning_LLM"
+    commit id: "Algorithmic_Geopolitics"
+    checkout main
+    merge AI_PostHuman_Branch id: "AGI_PostHumanity_Merge" tag: "Future"
+            </div>
+        </section>
+
+        <!-- TWO COLUMN INTERACTIVE INTERPRETER PANEL -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- STAGE SELECTOR CARDS (2 Cols) -->
+            <div class="lg:col-span-2 space-y-4">
+                <h3 class="text-md font-bold text-white flex items-center justify-between">
+                    <span><i class="fa-solid fa-layer-group text-ghBlue mr-2"></i>Tarihsel Dialektik Düğümler (Node Cards)</span>
+                    <span class="text-xs font-mono text-gray-400">Detay için metoda tıklayın</span>
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="cards-grid">
+                    <!-- Cards dynamically rendered by JS -->
+                </div>
+            </div>
+
+            <!-- RICH DETAIL INSPECTION PANEL (1 Col) -->
+            <div class="lg:col-span-1">
+                <div class="bg-ghCard border border-ghBorder rounded-xl p-5 sticky top-20 shadow-xl" id="detail-panel">
+                    <div class="text-center py-8 text-gray-400" id="detail-placeholder">
+                        <i class="fa-solid fa-hand-pointer text-3xl text-ghBlue mb-3 animate-bounce"></i>
+                        <h4 class="font-bold text-white text-sm">Düğüm Detayı Seçilmedi</h4>
+                        <p class="text-xs text-gray-400 mt-1">Diyagram üzerindeki bir adıma veya soldaki kartlara tıklayarak felsefi, ekonomik ve teknolojik detayları görüntüleyin.</p>
+                    </div>
+
+                    <div id="detail-content" class="hidden space-y-4">
+                        <div class="flex items-center justify-between border-b border-ghBorder pb-3">
+                            <span id="detail-tag" class="text-[10px] font-mono px-2 py-0.5 rounded uppercase font-bold bg-ghBlue/20 text-ghBlue border border-ghBlue/30">TEZ</span>
+                            <span id="detail-period" class="text-xs font-mono text-gray-400">MÖ 70.000</span>
+                        </div>
+
+                        <div>
+                            <h3 id="detail-title" class="text-lg font-bold text-white leading-snug">Cognitive & Biological Evolution</h3>
+                            <p id="detail-desc" class="text-xs text-gray-300 mt-2 leading-relaxed">Açıklama alanı...</p>
+                        </div>
+
+                        <!-- Specific Domain Breakdown -->
+                        <div class="space-y-3 pt-2 text-xs">
+                            <div class="bg-ghBg p-3 rounded-lg border border-ghBorder/80">
+                                <span class="text-ghPurple font-bold block mb-1"><i class="fa-solid fa-brain mr-1.5"></i> Felsefe & İnsan Doğası:</span>
+                                <span id="detail-phil" class="text-gray-300">...</span>
+                            </div>
+                            <div class="bg-ghBg p-3 rounded-lg border border-ghBorder/80">
+                                <span class="text-ghGreen font-bold block mb-1"><i class="fa-solid fa-coins mr-1.5"></i> Ekonomi & Uluslar / Jeopolitik:</span>
+                                <span id="detail-econ" class="text-gray-300">...</span>
+                            </div>
+                            <div class="bg-ghBg p-3 rounded-lg border border-ghBorder/80">
+                                <span class="text-ghBlue font-bold block mb-1"><i class="fa-solid fa-microchip mr-1.5"></i> Bilgisayar, Siber Uzay & YZ:</span>
+                                <span id="detail-cyber" class="text-gray-300">...</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-t border-ghBorder text-xs">
+                            <span class="text-gray-400 font-bold block mb-1"><i class="fa-solid fa-bookmark text-ghYellow mr-1.5"></i> Akademik Referanslar:</span>
+                            <p id="detail-ref" class="text-gray-400 font-mono text-[11px] leading-relaxed">...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIALECTICAL MATRIX TABLE SECTION -->
+        <section id="matrix" class="bg-ghCard border border-ghBorder rounded-xl p-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-table-cells-large text-ghPurple"></i>
+                        Diyalektik Evrim Matrisi (Tez -> Antitez -> Sentez)
+                    </h2>
+                    <p class="text-xs text-gray-400 mt-1">Tarihsel süreçlerin diyalektik mantık çerçevesinde dönüşüm özeti.</p>
+                </div>
+                <span class="text-xs font-mono text-ghPurple bg-ghPurple/10 px-3 py-1 rounded border border-ghPurple/30 mt-2 md:mt-0">Hegelian & Marxist Triad</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-gray-300 border-collapse">
+                    <thead>
+                        <tr class="bg-ghBg text-gray-400 font-mono uppercase border-b border-ghBorder">
+                            <th class="p-3 border-r border-ghBorder">Tarihsel Dönem</th>
+                            <th class="p-3 text-ghBlue border-r border-ghBorder">Tez (Main Branch)</th>
+                            <th class="p-3 text-ghPurple border-r border-ghBorder">Antitez (Feature Branch)</th>
+                            <th class="p-3 text-ghGreen">Sentez (Merge Commit)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-ghBorder font-sans">
+                        <tr class="hover:bg-ghBg/50 transition">
+                            <td class="p-3 font-semibold text-white font-mono bg-ghBg/30 border-r border-ghBorder">Antik & Feodal Çağ</td>
+                            <td class="p-3 border-r border-ghBorder">
+                                <strong class="text-white block">Doğa Durumu & Avcı-Toplayıcılık</strong>
+                                Rousseau'cu bakış: Özgür, mülkiyetsiz insan topluluğu.
+                            </td>
+                            <td class="p-3 border-r border-ghBorder">
+                                <strong class="text-white block">Tarım Devrimi & Mülkiyet</strong>
+                                Hobbes'çu çatışma, toprağa bağlılık ve ilk devlet organları.
+                            </td>
+                            <td class="p-3 text-ghGreen">
+                                <strong class="text-white block">Feodal Düzen & Westphalia Ulus-Devletleri</strong>
+                                Hukuki sınırlar, monarşik egemenlik ve sınıflı toplumlar.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-ghBg/50 transition">
+                            <td class="p-3 font-semibold text-white font-mono bg-ghBg/30 border-r border-ghBorder">Sanayi & Modernizm</td>
+                            <td class="p-3 border-r border-ghBorder">
+                                <strong class="text-white block">Kapitalizm & Serbest Piyasa</strong>
+                                Adam Smith: Görünmez el, sanayileşme ve burjuvazi egemenliği.
+                            </td>
+                            <td class="p-3 border-r border-ghBorder">
+                                <strong class="text-white block">Sosyalizm & Diyalektik Materyalizm</strong>
+                                Karl Marx: Sınıf mücadelesi, proletarya devrimi ve üretim araçlarının kamusallaşması.
+                            </td>
+                            <td class="p-3 text-ghGreen">
+                                <strong class="text-white block">Sosyal Devlet & Karma Ekonomi</strong>
+                                Welfare State, işçi hakları, Keynesyen ekonomi politikaları ve Soğuk Savaş dengesi.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-ghBg/50 transition">
+                            <td class="p-3 font-semibold text-white font-mono bg-ghBg/30 border-r border-ghBorder">Enformasyon & Dijital Çağ</td>
+                            <td class="p-3 border-r border-ghBorder">
+                                <strong class="text-white block">Fiziksel Ulus-Devlet Egemenliği</strong>
+                                Katı coğrafi sınırlar, konvansiyonel bürokrasi ve modernist büyük anlatılar.
+                            </td>
+                            <td class="p-3 border-r border-ghBorder">
+                                <strong class="text-white block">Siber Uzay & Postmodern Söylem</strong>
+                                Turing/ARPANET ile sınır-ötesi ağlar; Lyotard/Foucault ile bilginin merkezsizleşmesi.
+                            </td>
+                            <td class="p-3 text-ghGreen">
+                                <strong class="text-white block">Ağ Toplumu & Dijital Gözetim</strong>
+                                Manuel Castells: Küresel bilgi ağları, Siber Savaşlar ve Algoritmik Panoptikon.
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-ghBg/50 transition">
+                            <td class="p-3 font-semibold text-white font-mono bg-ghBg/30 border-r border-ghBorder">Yapay Zekâ & Post-Hümonizma</td>
+                            <td class="p-3 border-r border-ghBorder">
+                                <strong class="text-white block">İnsan-Merkezli Biliş ve İşgücü</strong>
+                                Antroposen çağ, klasik insan hakları ve biyolojik zekâ tekeli.
+                            </td>
+                            <td class="p-3 border-r border-ghBorder">
+                                <strong class="text-white block">Otonom Yapay Zekâ & YZ Geopolitiği</strong>
+                                LLM'ler, otonom siber silahlar, silikon tabanlı karar mekanizmaları.
+                            </td>
+                            <td class="p-3 text-ghGreen">
+                                <strong class="text-white block">AGI & Tekillik (Singularity) Sentezi</strong>
+                                Post-humanist paradigma, yapay genel zeka ile hibrit insan-makine medeniyeti.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ACADEMIC REFERENCES & BIBLIOGRAPHY SECTION -->
+        <section id="references" class="bg-ghCard border border-ghBorder rounded-xl p-6">
+            <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-graduation-cap text-ghYellow"></i>
+                Akademik Kaynakça & Literatür (APA Format)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono text-gray-300">
+                <div class="bg-ghBg p-4 rounded-lg border border-ghBorder">
+                    <span class="text-ghBlue font-bold block mb-1">Felsefe & İnsan Doğası</span>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• <strong>Rousseau, J.-J.</strong> (1755). <em>Discours sur l'origine et les fondements de l'inégalité parmi les hommes</em>. Amsterdam: Marc-Michel Rey.</li>
+                        <li>• <strong>Hobbes, T.</strong> (1651). <em>Leviathan or The Matter, Forme and Power of a Common-Wealth Ecclesiasticall and Civil</em>. London: Andrew Crooke.</li>
+                        <li>• <strong>Hegel, G. W. F.</strong> (1807). <em>Phänomenologie des Geistes</em>. Bamberg: Joseph Anton Goebhardt.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-ghBg p-4 rounded-lg border border-ghBorder">
+                    <span class="text-ghPurple font-bold block mb-1">Ekonomi Politika & Uluslar</span>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• <strong>Smith, A.</strong> (1776). <em>An Inquiry into the Nature and Causes of the Wealth of Nations</em>. London: W. Strahan.</li>
+                        <li>• <strong>Marx, K.</strong> (1867). <em>Das Kapital: Kritik der politischen Ökonomie</em>. Hamburg: Verlag von Otto Meissner.</li>
+                        <li>• <strong>Fukuyama, F.</strong> (1992). <em>The End of History and the Last Man</em>. New York: Free Press.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-ghBg p-4 rounded-lg border border-ghBorder">
+                    <span class="text-ghGreen font-bold block mb-1">Siber Uzay, Bilgisayar & YZ</span>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• <strong>Turing, A. M.</strong> (1950). Computing Machinery and Intelligence. <em>Mind</em>, 59(236), 433–460.</li>
+                        <li>• <strong>Castells, M.</strong> (1996). <em>The Rise of the Network Society</em>. Malden, MA: Blackwell Publishers.</li>
+                        <li>• <strong>Bostrom, N.</strong> (2014). <em>Superintelligence: Paths, Dangers, Strategies</em>. Oxford: Oxford University Press.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-ghBg p-4 rounded-lg border border-ghBorder">
+                    <span class="text-ghYellow font-bold block mb-1">Postmodernizm & Sosyoloji</span>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• <strong>Foucault, M.</strong> (1975). <em>Surveiller et punir: Naissance de la prison</em>. Paris: Gallimard.</li>
+                        <li>• <strong>Lyotard, J.-F.</strong> (1979). <em>La Condition postmoderne: rapport sur le savoir</em>. Paris: Éditions de Minuit.</li>
+                        <li>• <strong>Baudrillard, J.</strong> (1981). <em>Simulacres et Simulation</em>. Paris: Éditions Galilée.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-ghBorder bg-ghCard mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-code text-ghBlue"></i>
+                <span>Dialectical Engine — Built with HTML5, Tailwind CSS & Mermaid.js</span>
+            </div>
+            <div class="font-mono text-gray-400">
+                <span>Status: <span class="text-ghGreen">All Systems Nominal</span></span> | ASCII Verified Syntax
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE ENGINE SCRIPT -->
+    <script>
+        // DATA MATRIX FOR DIALECTICAL NODES
+        const nodesData = [
+            {
+                id: "Bio_Cognitive_Rev",
+                title: "Cognitive & Biological Evolution",
+                period: "MÖ 70.000 - MÖ 10.000",
+                domain: "biology",
+                tag: "TEZ (MAIN)",
+                desc: "Homo Sapiens'in bilişsel devrimi, dil ve soyut düşünce yeteneği kazanmasıyla doğa durumunda ilk toplumsal bağların oluşması.",
+                philosophy: "Rousseau'cu 'Doğal İnsan' (Soylu Vahşi). Mülkiyet ve hiyerarşi öncesi eşitlikçi kabile yapısı.",
+                economics: "Avcı-toplayıcı göçebe komünizm. Artık ürün yok, mülkiyet yok.",
+                cyber: "Biyolojik nöral ağlar, sözlü kültür ve sembolik mağara resimleriyle veri depolama.",
+                ref: "Harari, Y. N. (2014). Sapiens: A Brief History of Humankind."
+            },
+            {
+                id: "Agricultural_Rev",
+                title: "Agricultural Revolution & Property",
+                period: "MÖ 10.000 - MÖ 3.000",
+                domain: "biology",
+                tag: "KIRILMA",
+                desc: "Yerleşik hayata geçiş, toprağın işlenmesi ve ilk artı ürünün (surplus) birikmesiyle mülkiyet olgusunun doğması.",
+                philosophy: "Rousseau: 'Bir toprağın etrafını çitler ile çevirip bu benimdir diyen ilk insan, sivil toplumun kurucusu olmuştur.'",
+                economics: "Erken tarım ekonomisi, köleci üretim tarzı ve ilk sınıflı toplumlar.",
+                cyber: "Çivi yazısı, kil tabletler, vergi kayıtları ve ilk veri depolama bürokrasisi.",
+                ref: "Rousseau, J.-J. (1755). Inequality Discourse."
+            },
+            {
+                id: "Sedentary_Nations",
+                title: "Rise of States & Empires",
+                period: "MÖ 3000 - MS 1500",
+                domain: "economics",
+                tag: "BRANCH",
+                desc: "Şehir devletlerinden imparatorluklara geçiş. Sınırların çizilmesi ve ulus kavramının antik formları.",
+                philosophy: "Aristoteles (Zoon Politikon), Platon (Devlet) ve Doğu Konfüçyüsçü düzen arayışı.",
+                economics: "Feodalizm, serflik ve kara ticareti ipek yolları.",
+                cyber: "Matbaa (Gutenberg), bilginin kitlesel dağıtımı ve ilk bilgi protokolleri.",
+                ref: "Plato. (c. 375 BCE). The Republic."
+            },
+            {
+                id: "Rousseau_Hobbes_Debate",
+                title: "Rousseau vs Hobbes Philosophical Split",
+                period: "17. - 18. Yüzyıl",
+                domain: "philosophy",
+                tag: "ANTİTEZ",
+                desc: "İnsan doğası üzerine büyük diyalektik çatışma: Doğuştan iyi mi, yoksa bencil ve vahşi mi?",
+                philosophy: "Hobbes: 'Homo homini lupus' (İnsan insanın kurdudur) -> Leviathan zorunludur. Rousseau: Toplum insanı bozmuştur.",
+                economics: "Merkantilizm ve sömürgeci devlet egemenliği rekabeti.",
+                cyber: "Şifreleme (Cryptography), mekanik hesaplayıcılar (Pascaline, Leibniz wheel).",
+                ref: "Hobbes, T. (1651). Leviathan; Rousseau, J.-J. (1762). Du contrat social."
+            },
+            {
+                id: "Feudal_Westphalia_Merge",
+                title: "Westphalian Sovereign Nation-States",
+                period: "1648 - 18. Yüzyıl",
+                domain: "economics",
+                tag: "SENTEZ 01",
+                desc: "1648 Westphalia Barışı ile modern ulus-devlet sisteminin, sınırların ve uluslararası hukukun doğuşu.",
+                philosophy: "John Locke: Yaşam, Özgürlük ve Mülkiyet haklarını koruyan Sosyal Sözleşme devleti.",
+                economics: "Merkantilizmden erken burjuva ticaret kapitalizmine geçiş.",
+                cyber: "Standartlaştırılmış posta sistemleri, haritacılık ve küresel veri aktarımı.",
+                ref: "Locke, J. (1689). Two Treatises of Government."
+            },
+            {
+                id: "Adam_Smith_Capitalism",
+                title: "Industrial Revolution & Smithian Capitalism",
+                period: "1776 - 19. Yüzyıl",
+                domain: "economics",
+                tag: "TEZ (INDUSTRIAL)",
+                desc: "Buhar gücü, fabrika sistemi ve serbest piyasa kapitalizminin küresel hakimiyeti.",
+                philosophy: "Aydınlanma Rasyonalizmi, Bireycilik ve Faydacılık (Utilitarianism - Bentham, Mill).",
+                economics: "Adam Smith: Görünmez El (Invisible Hand), Serbest Piyasa, Uzmanlaşma.",
+                cyber: "Telgraf, Mors kodu, Sanayi üretiminde mekanik otomasyon.",
+                ref: "Smith, A. (1776). The Wealth of Nations."
+            },
+            {
+                id: "Marxist_Antithesis",
+                title: "Marxist Antithesis & Historical Materialism",
+                period: "1848 - 20. Yüzyıl",
+                domain: "philosophy",
+                tag: "ANTİTEZ",
+                desc: "Kapitalist sömürüye karşı diyalektik materyalist itiraz. İşçi sınıfı devrimi ve komünizm vizyonu.",
+                philosophy: "Karl Marx & Engels: Tarih sınıfların çatışmasından ibarettir. Altyapı (ekonomi) üstyapıyı (hukuk/din) belirler.",
+                economics: "Planlı Ekonomi, Kamu Mülkiyeti, Artı-Değer teorisi.",
+                cyber: "Devlet planlama komiteleri için erken sibernetik modeller (Örn: Şili Cybersyn projesi).",
+                ref: "Marx, K. & Engels, F. (1848). The Communist Manifesto."
+            },
+            {
+                id: "Social_State_Welfare_Merge",
+                title: "Welfare State & Cold War Equilibrium",
+                period: "1945 - 1989",
+                domain: "economics",
+                tag: "SENTEZ 02",
+                desc: "Kapitalizm ile Sosyalizm çatışmasının sentezi: Sosyal Devlet, İşçi Hakları ve Keynesyen İktisat.",
+                philosophy: "Frankfurt Okulu (Adorno, Horkheimer) Kültür Endüstrisi eleştirisi; Habermas Kamusal Alan.",
+                economics: "Keynesyen Ekonomi, Breton Woods, Sosyal Güvenlik Sistemleri.",
+                cyber: "Soğuk Savaş radar ağları, Erken uyarı sistemleri, Mainframe bilgisayarlar (IBM).",
+                ref: "Keynes, J. M. (1936). The General Theory of Employment, Interest and Money."
+            },
+            {
+                id: "Turing_ENIAC_Computers",
+                title: "Computability & Birth of Computer Science",
+                period: "1936 - 1950",
+                domain: "cyber",
+                tag: "SİBER TEZ",
+                desc: "Alan Turing'in evrensel hesaplama makinesi teorisi ve ilk dijital elektronik bilgisayarlar.",
+                philosophy: "Zihin-Beden ikiliği, Yapay Zekâ Felsefesi (Turing Testi: Makineler düşünebilir mi?).",
+                economics: "Bilgiye dayalı askeri-sanayi kompleksi finansmanı.",
+                cyber: "ENIAC, Von Neumann Mimarisi, İkili (Binary) Kod Mantığı.",
+                ref: "Turing, A. M. (1950). Computing Machinery and Intelligence."
+            },
+            {
+                id: "ARPANET_Cyber_Space",
+                title: "ARPANET, Internet & Global Cyber-Domain",
+                period: "1969 - 2000",
+                domain: "cyber",
+                tag: "SİBER BRANCH",
+                desc: "Merkezi olmayan paket anahtarlamalı ağlar, Internet ve siber uzayın ulus-devlet sınırlarını aşması.",
+                philosophy: "Cyberpunk manifestoları, Dijital Özgürlükçülük (Cyber-Libertarianism).",
+                economics: "Dot-com balonu, Bilgi Kapitalizmi, Platform Ekonomisi.",
+                cyber: "TCP/IP, WWW, Dağıtık Ağlar, Kriptografi.",
+                ref: "Castells, M. (1996). The Rise of the Network Society."
+            },
+            {
+                id: "Postmodern_Foucault_Lyotard",
+                title: "Postmodern Era & Hyperreality",
+                period: "1979 - Günümüz",
+                domain: "postmodern",
+                tag: "POSTMODERN",
+                desc: "Büyük anlatıların çöküşü, gerçekliğin simülasyona dönüşmesi ve gözetim toplumları.",
+                philosophy: "Lyotard (Büyük Anlatıların Sonu), Baudrillard (Simülakrlar), Foucault (Biyo-politika ve Dijital Panoptikon).",
+                economics: "Finansallaşma, Neoliberal Küreselleşme, Tüketim Toplumu.",
+                cyber: "Sosyal Medya algoritmaları, Veri madenciliği, Yankı odaları.",
+                ref: "Foucault, M. (1975). Discipline and Punish; Baudrillard, J. (1981)."
+            },
+            {
+                id: "Information_Network_Society_Merge",
+                title: "Global Network Society & Cyber Warfare",
+                period: "2000 - 2020",
+                domain: "cyber",
+                tag: "SENTEZ 03",
+                desc: "Ulus-devletlerin siber uzayı bir savaş alanı (5. Domain) olarak kabul etmesi ve Dijital Gözetim Devleti.",
+                philosophy: "Zygmunt Bauman (Akışkan Modernite), Byung-Chul Han (Psikopolitika & Yorgunluk Toplumu).",
+                economics: "Gözetim Kapitalizmi (Surveillance Capitalism - Zuboff), Big Tech Tekelleri.",
+                cyber: "Siber Savaşlar (Stuxnet), Kripto Paralar, Kuantum Hesaplama.",
+                ref: "Zuboff, S. (2019). The Age of Surveillance Capitalism."
+            },
+            {
+                id: "DeepLearning_LLM",
+                title: "AI Explosion & Generative Intelligence",
+                period: "2017 - Günümüz",
+                domain: "cyber",
+                tag: "YZ BRANCH",
+                desc: "Transformer mimarisi, Derin Öğrenme ve Büyük Dil Modelleri (LLM) ile bilişsel üretimin otomasyonu.",
+                philosophy: "Post-Hümanizm, Transhümanizm, Zihin Yükleme (Mind Uploading) ve Sentience tartışmaları.",
+                economics: "Otonom İşgücü, Algoritmik Değer Üretimi, Sentetik Medya Ekonomisi.",
+                cyber: "LLM'ler, Generative AI, Neural Processing Units (NPU), Siber Otonom Ajanlar.",
+                ref: "Vaswani et al. (2017). Attention Is All You Need."
+            },
+            {
+                id: "AGI_PostHumanity_Merge",
+                title: "AGI Horizon & Algorithmic Singularity",
+                period: "Gelecek (2026+)",
+                domain: "cyber",
+                tag: "FUTURE MERGE",
+                desc: "Yapay Genel Zekâ (AGI) sentezi ile insan-ötesi (Post-Human) yeni medeniyet diyalektiği.",
+                philosophy: "Varoluşsal Risk (Existential Risk), Varoluşsal Hizalanma (AI Alignment), Biyolojik-Bilişsel Sentez.",
+                economics: "Post-Scarcity (Kıtlık-Ötesi) veya Algoritmik Feodalizm.",
+                cyber: "AGI, Siber-Fiziksel Otonom Devler, Sentetik Biyoloji Entegrasyonu.",
+                ref: "Bostrom, N. (2014). Superintelligence."
+            }
+        ];
+
+        // INITIALIZE MERMAID
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose',
+            gitGraph: {
+                rotateCommitLabel: false,
+                showBranches: true,
+                showCommitLabel: true,
+                mainBranchName: 'main'
+            }
+        });
+
+        // RENDER NODES CARDS
+        function renderCards(filterDomain = 'all') {
+            const grid = document.getElementById('cards-grid');
+            grid.innerHTML = '';
+
+            const filtered = filterDomain === 'all' 
+                ? nodesData 
+                : nodesData.filter(n => n.domain === filterDomain || filterDomain === 'all');
+
+            filtered.forEach(node => {
+                const card = document.createElement('div');
+                card.className = "bg-ghCard border border-ghBorder hover:border-ghBlue rounded-lg p-4 cursor-pointer transition glow-blue flex flex-col justify-between group";
+                card.onclick = () => selectNode(node.id);
+
+                let tagBg = "bg-ghBlue/10 text-ghBlue border-ghBlue/30";
+                if(node.tag.includes("ANTİTEZ")) tagBg = "bg-ghPurple/10 text-ghPurple border-ghPurple/30";
+                if(node.tag.includes("SENTEZ")) tagBg = "bg-ghGreen/10 text-ghGreen border-ghGreen/30";
+                if(node.tag.includes("POSTMODERN")) tagBg = "bg-ghYellow/10 text-ghYellow border-ghYellow/30";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded border uppercase font-bold ${tagBg}">${node.tag}</span>
+                            <span class="text-[11px] font-mono text-gray-400">${node.period}</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white group-hover:text-ghBlue transition">${node.title}</h4>
+                        <p class="text-xs text-gray-400 mt-1 line-clamp-2">${node.desc}</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-ghBorder flex items-center justify-between text-[11px] text-gray-400 font-mono">
+                        <span><i class="fa-solid fa-code-commit mr-1"></i>${node.id}</span>
+                        <span class="text-ghBlue opacity-0 group-hover:opacity-100 transition">İncele &rarr;</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // SELECT NODE AND UPDATE DETAIL PANEL
+        function selectNode(nodeId) {
+            const node = nodesData.find(n => n.id === nodeId);
+            if (!node) return;
+
+            document.getElementById('detail-placeholder').classList.add('hidden');
+            const content = document.getElementById('detail-content');
+            content.classList.remove('hidden');
+
+            document.getElementById('detail-title').innerText = node.title;
+            document.getElementById('detail-period').innerText = node.period;
+            document.getElementById('detail-tag').innerText = node.tag;
+            document.getElementById('detail-desc').innerText = node.desc;
+            document.getElementById('detail-phil').innerText = node.philosophy;
+            document.getElementById('detail-econ').innerText = node.economics;
+            document.getElementById('detail-cyber').innerText = node.cyber;
+            document.getElementById('detail-ref').innerText = node.ref;
+
+            // Smooth Scroll to detail panel on small screens
+            if (window.innerWidth < 1024) {
+                document.getElementById('detail-panel').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // FILTER DOMAIN
+        function filterNodesByDomain(domain) {
+            renderCards(domain);
+        }
+
+        // RELOAD DIAGRAM
+        function reloadDiagram() {
+            mermaid.init(undefined, "#mermaid-container");
+        }
+
+        // BIND EVENT LISTENERS ON LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCards();
+
+            // Intercept SVG node clicks dynamically inside Mermaid SVG
+            setTimeout(() => {
+                const commits = document.querySelectorAll('.mermaid .commit-bullet, .mermaid .commit-label');
+                commits.forEach(c => {
+                    c.style.cursor = 'pointer';
+                    c.addEventListener('click', (e) => {
+                        // find matching ID
+                        const text = c.textContent || '';
+                        const match = nodesData.find(n => text.includes(n.id) || n.id.includes(text));
+                        if(match) selectNode(match.id);
+                    });
+                });
+            }, 1200);
+        });
+    </script>
+</body>
+</html>
