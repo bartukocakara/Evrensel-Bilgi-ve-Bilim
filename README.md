@@ -1,4 +1,6 @@
 Dialectical World Engine: GitHub Flow Visualizer
+![Dialectical World Engine](image.jfif)
+
 > **Insanlık Tarihinin Felsefi, Sosyolojik, Ekonomik & Siber Kırılma Haritası**  
 > *A Git-Flow representation of historical, philosophical, and technological paradigms from antiquity to the post-human AI horizon.*
 ---
